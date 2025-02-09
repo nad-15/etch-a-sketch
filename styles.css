@@ -45,9 +45,6 @@ h2 {
     font-size: 15px;
     padding: 10px;
 
-    
-
-
 }
 
 
@@ -101,13 +98,10 @@ h2 {
     flex-grow: 1;
     flex-shrink: 1;
 
-    transition: background-color 1s ease;
+    transition: background-color 2s ease-out;
 
 }
 
-.squares:hover {
-    background-color: red;
-}
 
 @media (min-width: 1024px) {
     .container-grid {
