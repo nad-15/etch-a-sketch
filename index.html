@@ -13,7 +13,8 @@
         <h2>Etch a Sketch</h2>
 
         <div class="user-input-container" id="container-user-input">
-            <input class="input-num-squares" id="num-squares-input" type="number" placeholder="Enter no. of squares for each side">
+            <input class="input-num-squares" id="num-squares-input" type="number" step="1" pattern="^\d+$"
+     placeholder="# of squares per side">
             <button class="button-create-grid" id="create-grid-button">Create Grid</button>
         </div>
 

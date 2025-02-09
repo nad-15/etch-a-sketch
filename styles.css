@@ -1,5 +1,5 @@
 body {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -10,6 +10,9 @@ body {
     align-items: center;
 }
 
+h2 {
+    margin-top: 0;
+}
 
 .main-container {
     display: flex;
@@ -20,13 +23,12 @@ body {
     width: fit-content;
     /* background-color: #ccc; */
     
-    padding: 30px;
 
 }
 
 .user-input-container {
 
-    /* width: 60%; */
+    border: none;
     margin-bottom: 1.5rem;
     display: flex;
     justify-content: center;
@@ -35,10 +37,14 @@ body {
 }
 
 .input-num-squares {
-    background-color: #ccc;
+    /* background-color: #ccc; */
+    outline: none;
+    border: 1px solid #ccc;
+    border-right: none;
+    
     font-size: 15px;
     padding: 10px;
-    /* width: 20px; */
+
     
 
 
@@ -46,16 +52,19 @@ body {
 
 
 .button-create-grid {
+    outline: none;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    padding: 10px;
 
-padding: 10px;
 }
 
 .container-grid {
     display: flex;
     flex-direction: column;
     border: .1px solid #ccc;
-    width: 500px;
-    height: 500px;
+    width: 80vw;
+    height: 80vw;
     /* background-color: aqua; */
 }
 
@@ -98,4 +107,12 @@ padding: 10px;
 
 .squares:hover {
     background-color: red;
+}
+
+@media (min-width: 1024px) {
+    .container-grid {
+        width: 75vh;
+        height: 75vh;
+    }
+
 }
