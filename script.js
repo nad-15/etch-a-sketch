@@ -1,13 +1,23 @@
 const numOfSquareInput = document.getElementById(`num-squares-input`);
 const createGridButton = document.getElementById(`create-grid-button`);
-
-
 const gridContainer = document.getElementById(`grid-container`);
+
+
+
+
 // gridContainer.style.backgroundColor = `red`;
 
 createGrid(16);
 
 createGridButton.addEventListener('click', function () {
+
+
+    const colorType = document.querySelector(`input[name="color-type"]:checked`);
+    console.log(colorType.value);
+    const fadeStyle = document.querySelector(`input[name="fade-style"]:checked`);
+    console.log(fadeStyle.value);
+    const opacityChange = document.querySelector(`input[name="opacity"]:checked`);
+    console.log(opacityChange.value);
     const squareNum = parseInt(numOfSquareInput.value);
     // Only create grid if squareNum is a valid number
     if (squareNum >= 1 && squareNum <= 100) {
@@ -35,7 +45,7 @@ createGridButton.addEventListener('click', function () {
 
 
 function ran(max) {
-    return  Math.floor(Math.random() * (max+1));
+    return Math.floor(Math.random() * (max + 1));
 }
 
 
