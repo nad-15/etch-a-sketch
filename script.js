@@ -18,39 +18,48 @@ createGridButton.addEventListener('click', function () {
 });
 
 
-const colors = [
-    "Red", "Blue", "Green", "Yellow", "Orange",
-    "Purple", "Cyan", "Magenta", "Pink", "Brown",
-    "Gray", "Teal", "Lime"
-];
+// const colors = [
+//     "Red", "Blue", "Green", "Yellow", "Orange",
+//     "Purple", "Cyan", "Magenta", "Pink", "Brown",
+//     "Gray", "Teal", "Lime"
+// ];
 
 
-function getRandomColor() {
-    const randomColor = Math.floor((Math.random() * 13));
-    console.log(randomColor);
-    return colors[randomColor];
+
+
+// function getRandomColor() {
+//     const randomColor = Math.floor((Math.random() * 13));
+//     console.log(randomColor);
+//     return colors[randomColor];
+// }
+
+
+function ran(max) {
+    return  Math.floor(Math.random() * (max+1));
 }
+
+
 
 function createGrid(squareNum) {
 
     gridContainer.innerHTML = '';
 
-    for (let i = 1; i <=squareNum; i++) {
+    for (let i = 1; i <= squareNum; i++) {
 
         const rowGrid = document.createElement(`div`);
         rowGrid.classList.add(`row-grid`);
-        for (let j = 1; j <=squareNum; j++) {
+        for (let j = 1; j <= squareNum; j++) {
 
             const squares = document.createElement(`div`);
 
             squares.classList.add(`squares`);
-            squares.addEventListener(`mouseenter`, ()=>{
-                squares.style.backgroundColor = getRandomColor();
+            squares.addEventListener(`mouseenter`, () => {
+                squares.style.backgroundColor = `rgb(${ran(255)}, ${ran(255)}, ${ran(255)})`;
             });
 
 
-            squares.addEventListener(`mouseout`, ()=>{
-                squares.style.backgroundColor = ``;
+            squares.addEventListener(`mouseout`, () => {
+                // squares.style.backgroundColor = ``;
             });
 
 

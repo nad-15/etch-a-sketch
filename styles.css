@@ -56,6 +56,12 @@ h2 {
 
 }
 
+
+.user-choices {
+    display: flex;
+    /* gap: 50px; */
+}
+
 .container-grid {
     display: flex;
     flex-direction: column;
