@@ -1,6 +1,9 @@
 const numOfSquareInput = document.getElementById(`num-squares-input`);
 const createGridButton = document.getElementById(`create-grid-button`);
 const gridContainer = document.getElementById(`grid-container`);
+const showGridLinesButton = document.querySelector(`.show-gridlines-button`);
+
+
 
 const radioButtonsContainer = document.querySelector(`.user-choices`);
 
@@ -145,3 +148,16 @@ function getOpacityValue() {
     console.log(`Opacity value is ${opacityValue}`);
     return opacityValue;
 }
+
+showGridLinesButton.addEventListener(`click`, ()=> {
+
+    const squares = gridContainer.querySelectorAll('.squares');
+
+    // Toggle the 'no-grid-lines' class on each square
+    squares.forEach(square => {
+        square.classList.toggle('no-grid-lines');
+    });
+
+    showGridLinesButton.textContent = `SHOW GRID LINES`
+
+});
