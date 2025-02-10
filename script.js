@@ -3,25 +3,33 @@ const createGridButton = document.getElementById(`create-grid-button`);
 const gridContainer = document.getElementById(`grid-container`);
 
 
-
-
-// gridContainer.style.backgroundColor = `red`;
-
-createGrid(16);
-
-createGridButton.addEventListener('click', function () {
-
-
+function getUserChoice() {
     const colorType = document.querySelector(`input[name="color-type"]:checked`);
-    console.log(colorType.value);
     const fadeStyle = document.querySelector(`input[name="fade-style"]:checked`);
-    console.log(fadeStyle.value);
     const opacityChange = document.querySelector(`input[name="opacity"]:checked`);
-    console.log(opacityChange.value);
+
+    // if (!colorType || !fadeStyle || !opacityChange) {
+    //     console.error('One or more radio buttons are not selected');
+    //     return null;
+    // }
+
+    return {
+        colorType: colorType.value,
+        fadeStyle: fadeStyle.value,
+        opacityChange: opacityChange.value
+    };
+}
+
+createGrid(16, getUserChoice().colorType, getUserChoice().fadeStyle, getUserChoice().opacityChange);
+
+
+// Attach event listener to the button for creating the grid
+createGridButton.addEventListener('click', function () {
+    const userChoice = getUserChoice();  // Call getUserChoice again when the button is clicked
     const squareNum = parseInt(numOfSquareInput.value);
-    // Only create grid if squareNum is a valid number
-    if (squareNum >= 1 && squareNum <= 100) {
-        createGrid(squareNum);
+
+    if (userChoice && squareNum >= 1 && squareNum <= 100) {
+        createGrid(squareNum, userChoice.colorType, userChoice.fadeStyle, userChoice.opacityChange);
     } else {
         alert('Enter valid number: Min: 1, Max: 100');
     }
@@ -50,7 +58,7 @@ function ran(max) {
 
 
 
-function createGrid(squareNum) {
+function createGrid(squareNum, colorType, fadeStyle, opacityChange) {
 
     gridContainer.innerHTML = '';
 
@@ -64,12 +72,24 @@ function createGrid(squareNum) {
 
             squares.classList.add(`squares`);
             squares.addEventListener(`mouseenter`, () => {
-                squares.style.backgroundColor = `rgb(${ran(255)}, ${ran(255)}, ${ran(255)})`;
+
+                if(colorType===`random-colors`) {
+                    console.log(colorType);
+                    squares.style.backgroundColor = `rgb(${ran(255)}, ${ran(255)}, ${ran(255)})`;
+                } else {
+                    console.log(colorType);
+                    squares.style.backgroundColor = `black`;
+                }
+
             });
 
 
             squares.addEventListener(`mouseout`, () => {
-                // squares.style.backgroundColor = ``;
+                console.log(fadeStyle);
+                if(fadeStyle ===`fade`){
+                    console.log(fadeStyle);
+                    squares.style.backgroundColor = ``;
+                } 
             });
 
 
