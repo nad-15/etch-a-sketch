@@ -6,10 +6,14 @@ const radioButtonsContainer = document.querySelector(`.user-choices`);
 
 createGridButton.addEventListener('click', ()=>{
     radioButtonsContainer.classList.add(`disabled`);
+    createGridButton.classList.add(`disabled`);
+    gridContainer.classList.remove(`disabled`);
 });
 
 numOfSquareInput.addEventListener(`input`, ()=>{
     radioButtonsContainer.classList.remove(`disabled`);
+    createGridButton.classList.remove(`disabled`);
+    gridContainer.classList.add(`disabled`);
 });
 
 let opacityValue = 0;
