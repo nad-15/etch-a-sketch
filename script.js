@@ -2,6 +2,17 @@ const numOfSquareInput = document.getElementById(`num-squares-input`);
 const createGridButton = document.getElementById(`create-grid-button`);
 const gridContainer = document.getElementById(`grid-container`);
 
+const radioButtonsContainer = document.querySelector(`.user-choices`);
+
+createGridButton.addEventListener('click', ()=>{
+    radioButtonsContainer.classList.add(`disabled`);
+});
+
+numOfSquareInput.addEventListener(`input`, ()=>{
+    radioButtonsContainer.classList.remove(`disabled`);
+});
+
+let opacityValue = 0;
 
 function getUserChoice() {
     const colorType = document.querySelector(`input[name="color-type"]:checked`);
@@ -27,12 +38,13 @@ createGrid(16, getUserChoice().colorType, getUserChoice().fadeStyle, getUserChoi
 createGridButton.addEventListener('click', function () {
     const userChoice = getUserChoice();  // Call getUserChoice again when the button is clicked
     const squareNum = parseInt(numOfSquareInput.value);
-
     if (userChoice && squareNum >= 1 && squareNum <= 100) {
         createGrid(squareNum, userChoice.colorType, userChoice.fadeStyle, userChoice.opacityChange);
     } else {
         alert('Enter valid number: Min: 1, Max: 100');
     }
+
+
 });
 
 
@@ -41,8 +53,6 @@ createGridButton.addEventListener('click', function () {
 //     "Purple", "Cyan", "Magenta", "Pink", "Brown",
 //     "Gray", "Teal", "Lime"
 // ];
-
-
 
 
 // function getRandomColor() {
@@ -60,6 +70,10 @@ function ran(max) {
 
 function createGrid(squareNum, colorType, fadeStyle, opacityChange) {
 
+    //for random colors opaque change
+    const a = ran(255);
+    const b = ran(255);
+    const c = ran(255);
     gridContainer.innerHTML = '';
 
     for (let i = 1; i <= squareNum; i++) {
@@ -73,23 +87,38 @@ function createGrid(squareNum, colorType, fadeStyle, opacityChange) {
             squares.classList.add(`squares`);
             squares.addEventListener(`mouseenter`, () => {
 
-                if(colorType===`random-colors`) {
+                if (colorType === `random-colors`) {
+
+                    if (opacityChange === `steady-opaq`) {
+                        squares.style.backgroundColor = `rgb(${ran(255)}, ${ran(255)}, ${ran(255)})`;
+                    } else {
+                        squares.style.backgroundColor = `rgb(${a}, ${b}, ${c} , ${getOpacityValue()})`;
+                    }
+                    // console.log(colorType);
+
+
+                } else if (colorType === `black`){
                     console.log(colorType);
-                    squares.style.backgroundColor = `rgb(${ran(255)}, ${ran(255)}, ${ran(255)})`;
-                } else {
-                    console.log(colorType);
-                    squares.style.backgroundColor = `black`;
+                    if (opacityChange === `steady-opaq`) {
+                        squares.style.backgroundColor = `rgba(0, 0, 0)`;
+                    } else {
+                        squares.style.backgroundColor = `rgba(0, 0, 0, ${getOpacityValue()})`;
+                    }
                 }
+
+                // squares.style.transition = `background-color 0s ease-out;`
 
             });
 
 
             squares.addEventListener(`mouseout`, () => {
-                console.log(fadeStyle);
-                if(fadeStyle ===`fade`){
-                    console.log(fadeStyle);
+                if (fadeStyle === `fade`) {
+                    // console.log(fadeStyle);
                     squares.style.backgroundColor = ``;
-                } 
+
+                    // squares.style.transition = `background-color 1s ease-out;`
+                }
+
             });
 
 
@@ -99,3 +128,16 @@ function createGrid(squareNum, colorType, fadeStyle, opacityChange) {
     }
 };
 
+function getOpacityValue() {
+    opacityValue += 0.1;
+
+    if (opacityValue > 1) {
+        opacityValue = 0.1;
+    }
+
+    // Round the opacity value to 1 decimal place
+    opacityValue = parseFloat(opacityValue.toFixed(1));
+
+    console.log(`Opacity value is ${opacityValue}`);
+    return opacityValue;
+}
