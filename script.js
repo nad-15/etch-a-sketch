@@ -43,6 +43,8 @@ createGrid(16, getUserChoice().colorType, getUserChoice().fadeStyle, getUserChoi
 
 // Attach event listener to the button for creating the grid
 createGridButton.addEventListener('click', function () {
+
+
     const userChoice = getUserChoice();  // Call getUserChoice again when the button is clicked
     const squareNum = parseInt(numOfSquareInput.value);
     if (userChoice && squareNum >= 1 && squareNum <= 100) {
@@ -77,6 +79,8 @@ function ran(max) {
 
 function createGrid(squareNum, colorType, fadeStyle, opacityChange) {
 
+
+    showGridLinesButton.textContent = "HIDE GRID LINES" ;
     //for random colors opaque change
     const a = ran(255);
     const b = ran(255);
