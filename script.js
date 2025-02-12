@@ -149,15 +149,15 @@ function getOpacityValue() {
     return opacityValue;
 }
 
-showGridLinesButton.addEventListener(`click`, ()=> {
-
+showGridLinesButton.addEventListener(`click`, () => {
     const squares = gridContainer.querySelectorAll('.squares');
 
-    // Toggle the 'no-grid-lines' class on each square
     squares.forEach(square => {
         square.classList.toggle('no-grid-lines');
     });
 
-    showGridLinesButton.textContent = `SHOW GRID LINES`
-
+    showGridLinesButton.textContent = 
+        showGridLinesButton.textContent === "SHOW GRID LINES" 
+            ? "HIDE GRID LINES" 
+            : "SHOW GRID LINES";
 });
