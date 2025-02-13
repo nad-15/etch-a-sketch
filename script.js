@@ -19,7 +19,10 @@ numOfSquareInput.addEventListener(`input`, ()=>{
     gridContainer.classList.add(`disabled`);
 });
 
-let opacityValue = 0;
+let opacityValue = 1;
+let a, b, c; // for rgb values
+
+
 
 function getUserChoice() {
     const colorType = document.querySelector(`input[name="color-type"]:checked`);
@@ -82,9 +85,7 @@ function createGrid(squareNum, colorType, fadeStyle, opacityChange) {
 
     showGridLinesButton.textContent = "HIDE GRID LINES" ;
     //for random colors opaque change
-    const a = ran(255);
-    const b = ran(255);
-    const c = ran(255);
+
     gridContainer.innerHTML = '';
 
     for (let i = 1; i <= squareNum; i++) {
@@ -103,7 +104,19 @@ function createGrid(squareNum, colorType, fadeStyle, opacityChange) {
                     if (opacityChange === `steady-opaq`) {
                         squares.style.backgroundColor = `rgb(${ran(255)}, ${ran(255)}, ${ran(255)})`;
                     } else {
+
+                        if(opacityValue == 1) {
+                            a = ran(255);
+                            b = ran(255);
+                            c = ran(255);
+                            console.log(`color change`);
+                        }
+
                         squares.style.backgroundColor = `rgb(${a}, ${b}, ${c} , ${getOpacityValue()})`;
+                        // console.log(`set new color`);
+
+
+
                     }
                     // console.log(colorType);
 
