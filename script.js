@@ -137,7 +137,7 @@ function createGrid(squareNum, colorType, fadeStyle, opacityChange) {
             squares.classList.add(`squares`);
             squares.addEventListener(`mouseenter`, (event) => {
 
-                if (event.ctrlKey) {
+                if (event.shiftKey) {
 
 
 
