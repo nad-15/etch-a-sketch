@@ -1,7 +1,9 @@
+const clearGridColor = document.querySelector(`.clear-grid-colors`);
 const numOfSquareInput = document.getElementById(`num-squares-input`);
 const createGridButton = document.getElementById(`create-grid-button`);
 const gridContainer = document.getElementById(`grid-container`);
 const showGridLinesButton = document.querySelector(`.show-gridlines-button`);
+
 
 
 
@@ -12,6 +14,18 @@ createGridButton.addEventListener('click', ()=>{
     createGridButton.classList.add(`disabled`);
     gridContainer.classList.remove(`disabled`);
 });
+
+numOfSquareInput.addEventListener(`focus`, ()=>{
+    radioButtonsContainer.classList.remove(`disabled`);
+    createGridButton.classList.remove(`disabled`);
+    gridContainer.classList.add(`disabled`);
+});
+
+// numOfSquareInput.addEventListener(`blur`, ()=>{
+    radioButtonsContainer.classList.add(`disabled`);
+    createGridButton.classList.add(`disabled`);
+//     gridContainer.classList.remove(`disabled`);
+// });
 
 numOfSquareInput.addEventListener(`input`, ()=>{
     radioButtonsContainer.classList.remove(`disabled`);
@@ -82,8 +96,10 @@ function ran(max) {
 
 function createGrid(squareNum, colorType, fadeStyle, opacityChange) {
 
-
+    
     showGridLinesButton.textContent = "HIDE GRID LINES" ;
+    
+    showGridLinesButton.classList.toggle(`toggled`);
     //for random colors opaque change
 
     gridContainer.innerHTML = '';
@@ -173,8 +189,18 @@ showGridLinesButton.addEventListener(`click`, () => {
         square.classList.toggle('no-grid-lines');
     });
 
+    // showGridLinesButton.classList.toggle(`toggled`);
     showGridLinesButton.textContent = 
         showGridLinesButton.textContent === "SHOW GRID LINES" 
             ? "HIDE GRID LINES" 
             : "SHOW GRID LINES";
+});
+
+
+clearGridColor.addEventListener(`click`, ()=>{
+    const squares = gridContainer.querySelectorAll('.squares');
+
+    squares.forEach(square => {
+        square.style.backgroundColor = ``;
+    });
 });

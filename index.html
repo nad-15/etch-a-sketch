@@ -6,58 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch a Sketch</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
     <main class="main-container">
-        <h2>Etch a Sketch</h2>
 
-        <div class="user-input-container" id="container-user-input">
-            <input class="input-num-squares" id="num-squares-input" type="number" step="1" pattern="^\d+$"
-                placeholder="# of squares per side">
-            <button class="button-create-grid disabled" id="create-grid-button">Create Grid</button>
+
+        <div class="user-selection-container">
+            <h2>Etch a Sketch</h2>
+
+            <div class="user-input-container" id="container-user-input">
+                <input class="input-num-squares" id="num-squares-input" type="number" step="1" pattern="^\d+$"
+                    placeholder="# of squares per side">
+                <button class="button-create-grid disabled" id="create-grid-button">Create Grid</button>
+            </div>
+
+            <div class="user-choices disabled">
+
+
+                <div class="radio-container">
+                    <div class="radio-lable-container"><input type="radio" name="color-type" value="random-colors"
+                            checked>
+                        <div>Random Colors</div>
+                    </div>
+                    <div class="radio-lable-container"><input type="radio" name="color-type" value="black">
+                        <div>Black</div>
+                    </div>
+                </div>
+
+                <div class="radio-container">
+                    <div class="radio-lable-container"><input type="radio" name="opacity" value="steady-opaq" checked>
+                        <div>Steady Opacity</div>
+                    </div>
+                    <div class="radio-lable-container"><input type="radio" name="opacity" value="increase-opaq">
+                        <div>Increase Opacity</div>
+                    </div>
+                </div>
+
+                <div class="radio-container">
+                    <div class="radio-lable-container"><input type="radio" name="fade-style" value="no-Fade" checked>
+                        <div>No Fade</div>
+                    </div>
+                    <div class="radio-lable-container"><input type="radio" name="fade-style" value="fade">
+                        <div>Fade</div>
+                    </div>
+                </div>
+               
+
+            </div>
+            <div class="button-container">
+            <button class="show-gridlines-button button">HIDE GRID LINES</button>
+            <button class="clear-grid-colors button">Clear Grid Color</button>
         </div>
-
-        <div class="user-choices disabled">
-
-
-            <div class="radio-container">
-                <div class="radio-lable-container"><input type="radio" name="color-type" value="random-colors" checked>
-                    <div>Random Colors</div>
-                </div>
-                <div class="radio-lable-container"><input type="radio" name="color-type" value="black">
-                    <div>Black</div>
-                </div>
-            </div>
-
-            <div class="radio-container">
-                <div class="radio-lable-container"><input type="radio" name="opacity" value="steady-opaq" checked>
-                    <div>Steady Opacity</div>
-                </div>
-                <div class="radio-lable-container"><input type="radio" name="opacity" value="increase-opaq">
-                    <div>Increase Opacity</div>
-                </div>
-            </div>
-
-            <div class="radio-container">
-                <div class="radio-lable-container"><input type="radio" name="fade-style" value="no-Fade" checked>
-                    <div>No Fade</div>
-                </div>
-                <div class="radio-lable-container"><input type="radio" name="fade-style" value="fade">
-                    <div>Fade</div>
-                </div>
-            </div>
-
         </div>
-
-
 
 
         <div class="container-grid" id="grid-container">
             <!-- insert square grid here -->
         </div>
 
-        <button class="show-gridlines-button">HIDE GRID LINES</button>
 
 
     </main>

@@ -1,4 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+
+:root {
+    --grid-border: 0.5px solid rgba(0, 0, 0, 0.3);
+    --grid-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+html {
+    font-family: 'Bangers ', cursive;
+}
+
+
 body {
+
     /* border: 2px solid red; */
     box-sizing: border-box;
     margin: 0;
@@ -9,10 +21,22 @@ body {
     justify-content: center;
     align-items: center;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    
+    cursor: url('paintbrush-simple.svg') 10 10, auto;
+}
+
+
+.user-selection-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 h2 {
     margin-top: 0;
+    text-shadow: var(--grid-shadow);
 }
 
 .main-container {
@@ -22,6 +46,7 @@ h2 {
     align-items: center;
     height: fit-content;
     width: fit-content;
+    background-color: white;
     /* background-color: #ccc; */
 
 
@@ -40,7 +65,7 @@ h2 {
 .input-num-squares {
     /* background-color: #ccc; */
     outline: none;
-    border: 1px solid #ccc;
+    border: .1px solid #ccc;
     border-right: none;
 
     font-size: 15px;
@@ -91,9 +116,12 @@ h2 {
     flex-direction: column;
     border: .1px solid #ccc;
     border: .1px solid black;
+    border: .5px solid rgba(0, 0, 0, 0.3);
     width: 80vw;
     height: 80vw;
     /* background-color: aqua; */
+    box-shadow: var(--grid-shadow)
+
 }
 
 
@@ -115,12 +143,13 @@ h2 {
 }
 
 
+
 .squares {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border: .1px solid #ccc;
-    border: .1px solid black;
+    border: .5px solid #ccc;
+    border: .5px solid rgba(0, 0, 0, 0.3);
 
     width: 100%;
     height: 100%;
@@ -130,6 +159,9 @@ h2 {
     flex-grow: 1;
     flex-shrink: 1;
 
+    cursor: url('paintbrush-simple.svg') 10 10, auto;
+    
+
     /* transition: background-color 3s ease-out; */
 
 }
@@ -138,13 +170,11 @@ h2 {
     border: none;
 }
 
-.show-gridlines-button {
-    margin-top: 1rem;
-}
 
-.show-gridlines-button {
+.button {
+    margin-bottom: 1rem;
     font-family: monospace;
-    background-color: #d32f2f; /* Classic red */
+    background-color: #d32f2f; 
     color: white;
     font-size: 1rem;
     font-weight: bold;
@@ -162,7 +192,7 @@ h2 {
 }
 
 .show-gridlines-button.toggled {
-    background-color: #388e3c; /* Green when grid is ON */
+    background-color: #388e3c; 
 }
 
 
@@ -171,9 +201,62 @@ h2 {
 
 
 @media (min-width: 1024px) {
+
+    /* * {
+        border: 1px solid lime;
+    } */
+
+    body {
+        /* border: 2px solid red; */
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 100vh;
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    h2 {
+        font-size: 5rem;
+        margin-top: 0;
+    }
     .container-grid {
-        width: 75vh;
-        height: 75vh;
+        width: 90vh;
+        height: 90vh;
+    }
+
+    .main-container {
+        padding: 0;
+        margin: 0;
+        /* gap: 2rem; */
+        /* border: 1px solid red; */
+        display: flex;
+        flex-direction: row;
+        /* justify-content: center; */
+        /* justify-content: flex-start; */
+        align-items: flex-start;
+        height: 90vh;
+    }
+
+    .user-selection-container {
+        padding: 0;
+        margin: 0;
+        /* border: 1px solid blue; */
+        width: 30vw;
+        height: 100% ;
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        justify-content:flex-start;
+        align-items: center;
+    }
+
+    .user-choices {
+        display: flex;
+        flex-direction: column;
     }
 
 }
