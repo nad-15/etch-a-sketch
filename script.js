@@ -1,10 +1,23 @@
+const text = "Etch a Sketch";
+const etchSketch = document.getElementById("etch-sketch");
+
+etchSketch.innerHTML = text
+  .split("")
+  .map(letter => `<span style="color: ${getRandomColor()}">${letter}</span>`)
+  .join("");
+
+function getRandomColor() {
+  return `hsl(${Math.random() * 360}, 100%, 50%)`; // Vibrant colors
+}
+
+
 const clearGridColor = document.querySelector(`.clear-grid-colors`);
 const numOfSquareInput = document.getElementById(`num-squares-input`);
 const createGridButton = document.getElementById(`create-grid-button`);
 const gridContainer = document.getElementById(`grid-container`);
 const showGridLinesButton = document.querySelector(`.show-gridlines-button`);
 
-
+console.log(numOfSquareInput.value);
 
 
 const radioButtonsContainer = document.querySelector(`.user-choices`);
@@ -31,6 +44,14 @@ numOfSquareInput.addEventListener(`input`, ()=>{
     radioButtonsContainer.classList.remove(`disabled`);
     createGridButton.classList.remove(`disabled`);
     gridContainer.classList.add(`disabled`);
+
+
+});
+
+numOfSquareInput.addEventListener(`input`, ()=>{
+    createGridButton.click();
+
+    
 });
 
 let opacityValue = 1;
@@ -64,6 +85,7 @@ createGridButton.addEventListener('click', function () {
 
     const userChoice = getUserChoice();  // Call getUserChoice again when the button is clicked
     const squareNum = parseInt(numOfSquareInput.value);
+    
     if (userChoice && squareNum >= 1 && squareNum <= 100) {
         createGrid(squareNum, userChoice.colorType, userChoice.fadeStyle, userChoice.opacityChange);
     } else {
@@ -97,7 +119,7 @@ function ran(max) {
 function createGrid(squareNum, colorType, fadeStyle, opacityChange) {
 
     
-    showGridLinesButton.textContent = "HIDE GRID LINES" ;
+    showGridLinesButton.textContent = "hide grid lines" ;
     
     showGridLinesButton.classList.toggle(`toggled`);
     //for random colors opaque change
@@ -113,7 +135,11 @@ function createGrid(squareNum, colorType, fadeStyle, opacityChange) {
             const squares = document.createElement(`div`);
 
             squares.classList.add(`squares`);
-            squares.addEventListener(`mouseenter`, () => {
+            squares.addEventListener(`mouseenter`, (event) => {
+
+                if (event.ctrlKey) {
+
+
 
                 if (colorType === `random-colors`) {
 
@@ -148,7 +174,10 @@ function createGrid(squareNum, colorType, fadeStyle, opacityChange) {
 
                 // squares.style.transition = `background-color 0s ease-out;`
 
-            });
+            }        });
+
+            //
+
 
 
             squares.addEventListener(`mouseout`, () => {
@@ -191,9 +220,9 @@ showGridLinesButton.addEventListener(`click`, () => {
 
     // showGridLinesButton.classList.toggle(`toggled`);
     showGridLinesButton.textContent = 
-        showGridLinesButton.textContent === "SHOW GRID LINES" 
-            ? "HIDE GRID LINES" 
-            : "SHOW GRID LINES";
+        showGridLinesButton.textContent === "show grid lines" 
+            ? "hide grid lines" 
+            : "show grid lines";
 });
 
 

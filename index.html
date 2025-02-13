@@ -15,11 +15,15 @@
 
 
         <div class="user-selection-container">
-            <h2>Etch a Sketch</h2>
+            <!-- <h2>Etch a Sketch</h2> -->
+            <!-- <h2>Etch a <span class="sketch"></span></h2> -->
+            <h2 id="etch-sketch"></h2>
+
+
 
             <div class="user-input-container" id="container-user-input">
-                <input class="input-num-squares" id="num-squares-input" type="number" step="1" pattern="^\d+$"
-                    placeholder="# of squares per side">
+                <!-- <input class="input-num-squares" id="num-squares-input" type="number" step="1" pattern="^\d+$" -->
+                <input class="input-num-squares" id="num-squares-input" type="range" value="16" min="1" max="100">
                 <button class="button-create-grid disabled" id="create-grid-button">Create Grid</button>
             </div>
 
@@ -57,8 +61,8 @@
 
             </div>
             <div class="button-container">
-            <button class="show-gridlines-button button">HIDE GRID LINES</button>
-            <button class="clear-grid-colors button">Clear Grid Color</button>
+            <button class="show-gridlines-button button">hide grid lines</button>
+            <button class="clear-grid-colors button">clear grid color</button>
         </div>
         </div>
 
