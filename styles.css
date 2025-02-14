@@ -186,8 +186,9 @@ h2 {
     margin-bottom: 1rem;
     font-family: monospace;
     font-family: 'Chewy ', cursive;
-    background-color: #d32f2f;
+    /* background-color: #d32f2f; */
     color: white;
+    color: black;
     font-size: 1rem;
     font-weight: bold;
     border: none;
@@ -199,12 +200,12 @@ h2 {
 }
 
 .show-gridlines-button:active {
-    box-shadow: 0px 2px 0px #a00;
+    /* box-shadow: 0px 2px 0px #a00; */
     transform: translateY(2px);
 }
 
 .show-gridlines-button.toggled {
-    background-color: #388e3c;
+    /* background-color: #388e3c; */
 }
 
 
