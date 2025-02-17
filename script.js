@@ -1,16 +1,3 @@
-const text = "Etch a Sketch";
-const etchSketch = document.getElementById("etch-sketch");
-
-etchSketch.innerHTML = text
-  .split("")
-  .map(letter => `<span style="color: ${getRandomColor()}">${letter}</span>`)
-  .join("");
-
-function getRandomColor() {
-  return `hsl(${Math.random() * 360}, 100%, 50%)`; // Vibrant colors
-}
-
-
 const clearGridColor = document.querySelector(`.clear-grid-colors`);
 const numOfSquareInput = document.getElementById(`num-squares-input`);
 const createGridButton = document.getElementById(`create-grid-button`);
@@ -233,3 +220,5 @@ clearGridColor.addEventListener(`click`, ()=>{
         square.style.backgroundColor = ``;
     });
 });
+
+

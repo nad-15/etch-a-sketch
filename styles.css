@@ -6,12 +6,95 @@
 }
 
 html {
-    font-family: 'Chewy ', cursive;
+    font-family: 'Chewy', cursive;
+
+}
+
+
+
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #222;
+    color: white;
+    padding: 8px 20px;
+    /* padding-right: 3rem; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top */
+}
+
+
+
+/* Logo */
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+    margin: 0;
+}
+
+.nav-links a:hover {
+    color: #f4a261; /* Accent color */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.grid-toolbar-container {
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+}
+
+.toolbars {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.icon-button {
+
 }
 
 
 body {
-    font-family: 'Chewy ', cursive;
+    font-family: 'Chewy', cursive;
     /* border: 2px solid red; */
     box-sizing: border-box;
     margin: 0;
@@ -21,10 +104,9 @@ body {
     width: 100vw;
     justify-content: center;
     align-items: center;
-    font-family: Arial, Helvetica, sans-serif;
     background-color: white;
-
-    cursor: url('paintbrush-simple.svg') 10 10, auto;
+/* i cant make this work the cursor */
+    cursor: url('paintbrush-simple.svg') 10 10, auto; 
 }
 
 
@@ -37,7 +119,7 @@ body {
 }
 
 h2 {
-    font-family: 'Chewy ', cursive;
+    font-family: 'Chewy', cursive;
     font-size: 2.5rem;
     margin-top: 1.5rem;
     text-shadow: var(--grid-shadow);
@@ -96,7 +178,7 @@ h2 {
     width: fit-content;
     height: 40px;
     flex-shrink: 0;
-    font-family: 'Chewy ', cursive;
+    font-family: 'Chewy', cursive;
 
 }
 
@@ -108,12 +190,12 @@ h2 {
     justify-content: space-around;
     
 }
-
+/* 
 .disabled {
     pointer-events: none;
     opacity: 0.5;
     cursor: not-allowed;
-}
+} */
 
 .radio-container {
     border: 1px solid #ccc;
@@ -122,8 +204,8 @@ h2 {
     display: flex;
     margin-bottom: 1rem;
     flex-direction: column;
-    font-family: 'Chewy ', cursive;
-    border: 2px solid red;
+    font-family: 'Chewy', cursive;
+    /* border: 2px solid red; */
 }
 
 
@@ -194,11 +276,11 @@ h2 {
 .button {
     margin-bottom: 1rem;
     font-family: monospace;
-    font-family: 'Chewy ', cursive;
+    font-family: 'Chewy', cursive;
     /* background-color: #d32f2f; */
     color: white;
     color: black;
-    font-size: 1rem;
+    font-size: .5rem;
     font-weight: bold;
     border: none;
     border-radius: 8px;
@@ -206,7 +288,7 @@ h2 {
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     /* box-shadow: 0px 4px 0px #a00, 0px 6px 10px rgba(0, 0, 0, 0.2); */
-    border: 2px solid red;
+    /* border: 2px solid red; */
     /* width: 100%; */
     flex: 1;
 }
@@ -221,38 +303,53 @@ h2 {
 }
 
 
+#colorPicker {
+    width: 20px;
+    height: 20px;
+    /* border-radius: 50%; */
+    border: none;
+}
+
+.radio-label-container {
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
 
 
 
-
-@media (min-width: 1024px) {
+@media (min-width: 700px) {
 
     /* * {
         border: 1px solid lime;
     } */
 
     body {
+        font-family: 'Chewy', cursive;
         /* border: 2px solid red; */
+        font-size: 1rem;
         box-sizing: border-box;
         margin: 0;
-        padding: 0;
+        padding-top: 3rem;
         display: flex;
         height: 100vh;
         width: 100vw;
         justify-content: center;
         align-items: center;
-        font-family: Arial, Helvetica, sans-serif;
     }
 
     h2 {
-        font-size: 5rem;
-        margin-top: 0;
+        color: white;
+        font-size: 2.5rem;
+        /* margin-top: 0; */
         margin-bottom: 0;
     }
 
     .container-grid {
-        width: 80vh;
-        height: 80vh;
+        width: 85vh;
+        height: 85vh;
     }
 
     .main-container {
@@ -265,10 +362,11 @@ h2 {
         /* justify-content: center; */
         /* justify-content: flex-start; */
         align-items: flex-start;
-        height: 80vh;
+        height: 85vh;
     }
 
     .user-selection-container {
+        background-color:rgba(0, 0, 0, 0.5);
         padding: 0;
         margin: 0;
         /* border: 1px solid blue; */
@@ -277,8 +375,10 @@ h2 {
         display: flex;
         flex-direction: column;
         /* justify-content: center; */
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: center;
+        /* flex-wrap: 1; */
+        border-radius: 8px;
     }
 
     .user-choices {

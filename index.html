@@ -7,22 +7,35 @@
     <title>Etch a Sketch</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
 </head>
 
 <body>
+
+
+    <header class="navbar">
+    <h1 class="logo">Etch-a-sketch</h1>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+</header>
     <main class="main-container">
 
 
         <div class="user-selection-container">
-            <!-- <h2>Etch a Sketch</h2> -->
+            <h2>Unleash Your Creativity...</h2>
             <!-- <h2>Etch a <span class="sketch"></span></h2> -->
-            <h2 id="etch-sketch"></h2>
+            <!-- <h2 id="etch-sketch"></h2> -->
 
 
 
             <div class="user-input-container" id="container-user-input">
-                <input class="input-num-squares" id="num-squares-input" type="number" step="1" placeholder = "Enter no. of squares per side">
+                <input class="input-num-squares" id="num-squares-input" type="number" step="1"
+                    placeholder="square dimension">
                 <!-- <input class="input-num-squares" id="num-squares-input" type="range" value="16" min="1" max="100"> -->
                 <button class="button-create-grid disabled" id="create-grid-button">Create Grid</button>
             </div>
@@ -31,32 +44,41 @@
 
 
                 <div class="radio-container">
-                    <div class="radio-lable-container"><input type="radio" name="color-type" value="random-colors"
-                            checked>
-                        <div>Random Colors</div>
-                    </div>
-                    <div class="radio-lable-container"><input type="radio" name="color-type" value="black">
+                    <div class="radio-label-container"><input type="radio" name="color-type" value="black" checked>
                         <div>Black</div>
                     </div>
+                    <div class="radio-label-container"><input type="radio" name="color-type" value="random-colors">
+                        <div>Random Colors</div>
+                    </div>
+
+
+
+                    <div class="radio-label-container">
+                        <input type="radio" name="color-type" value="custom">
+                        <div>Custom Color</div>
+                        <input type="color" id="colorPicker" value="#000000">
+                    </div>
                 </div>
 
                 <div class="radio-container">
-                    <div class="radio-lable-container"><input type="radio" name="opacity" value="steady-opaq" checked>
-                        <div>Steady Opacity</div>
+                    <div class="radio-label-container"><input type="radio" name="opacity" value="steady-opaq" checked>
+                        <div>Fixed Opacity (1)</div>
                     </div>
-                    <div class="radio-lable-container"><input type="radio" name="opacity" value="increase-opaq">
-                        <div>Increase Opacity</div>
+                    <div class="radio-label-container"><input type="radio" name="opacity" value="increase-opaq">
+                        <div>Progressive Opacity (0.1 to 1)</div>
                     </div>
                 </div>
 
+
+                <!-- 
                 <div class="radio-container">
-                    <div class="radio-lable-container"><input type="radio" name="fade-style" value="no-Fade" checked>
+                    <div class="radio-label-container"><input type="radio" name="fade-style" value="no-Fade" checked>
                         <div>No Fade</div>
                     </div>
-                    <div class="radio-lable-container"><input type="radio" name="fade-style" value="fade">
+                    <div class="radio-label-container"><input type="radio" name="fade-style" value="fade">
                         <div>Fade</div>
                     </div>
-                </div>
+                </div> -->
 
 
             </div>
@@ -67,9 +89,53 @@
             </div>
         </div>
 
+        <div class="grid-toolbar-container">
 
-        <div class="container-grid" id="grid-container">
-            <!-- insert square grid here -->
+
+
+
+
+
+            <div class="container-grid" id="grid-container">
+                <!-- insert square grid here -->
+            </div>
+
+            <div class="toolbars">
+                <!-- Pen Button -->
+                <button class="icon-button pen-button">
+                    <span class="material-symbols-outlined">
+                        edit
+                        </span>
+                </button>
+
+                <!-- Eraser Button (pen-like) -->
+                <button class="icon-button eraser-button">
+                    <span class="material-symbols-outlined">
+                        ink_eraser
+                        </span>
+                </button>
+
+
+
+                <!-- Clear Grid Colors Button -->
+                <button class="icon-button clear-colors-button">
+                    <span class="material-symbols-outlined">
+                        format_color_reset
+                        </span>
+                </button>
+
+                <!-- Show Grid Lines Toggle -->
+                <button class="icon-button toggle-grid-button">
+                    <span class="material-symbols-outlined">
+                        grid_3x3
+                        </span>
+                </button>
+
+                <!-- Download Button -->
+                <button class="icon-button download-button">
+                    <span class="material-icons">file_download</span>
+                </button>
+            </div>
         </div>
 
 
@@ -82,8 +148,8 @@
 
 
 
-
-    <script src="script.js"></script>
+    <script src="main.js"></script>
+    <!-- <script src="script.js"></script> -->
 </body>
 
 </html>
