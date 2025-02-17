@@ -1,33 +1,43 @@
-const clearGridColor = document.querySelector(`.clear-grid-colors`);
+const about = document.querySelector(`.about`);
+const clearGridColor = document.querySelector(`.clear-colors-button`);
 const numOfSquareInput = document.getElementById(`num-squares-input`);
 const createGridButton = document.getElementById(`create-grid-button`);
 const gridContainer = document.getElementById(`grid-container`);
-const showGridLinesButton = document.querySelector(`.show-gridlines-button`);
+const toggleGridButton = document.querySelector(`.toggle-grid-button`);
 const colorPicker = document.getElementById(`colorPicker`);
 const opacityRadios = document.querySelectorAll('input[name="opacity"]');
 const radioButtonsContainer = document.querySelector(`.user-choices`);
 const colorRadios = document.querySelectorAll('input[name="color-type"]');
+const eraserButton = document.querySelector(`.eraser-button`);
+const penButton = document.querySelector(`.pen-button`);
+const downloadButton = document.querySelector(`.download-button`);
+const toolStatus = document.querySelector(`.tool-status`);
+const colorPickerAlt = document.querySelector(`.colorPicker-palette`);
+let isPenOn=true;
+let isEraserOn = false;
 
-//initialize grid and listeners
+
+//initialize grid and square listeners
 createGrid(16);
 attachSquareEvents();
 
 
-createGridButton.addEventListener('click', function () {
-    const squareNum = parseInt(numOfSquareInput.value);
 
+createGridButton.addEventListener('click', function () {
+    
+    const squareNum = parseInt(numOfSquareInput.value);
     if (squareNum >= 1 && squareNum <= 200) {
         createGrid(squareNum);
         attachSquareEvents();
     } else {
-        alert('Enter valid number: Min: 1, Max: 100');
+        alert('Enter valid number: Min: 1, Max: 200');
     }
 });
 
-
+//Grid Maker Funciton
 function createGrid(squareNum) {
-    showGridLinesButton.textContent = "hide grid lines";
-    showGridLinesButton.classList.toggle(`toggled`);
+    toggleGridButton.classList.remove('is-on');
+    penButton.click();
     gridContainer.innerHTML = '';
 
     for (let i = 1; i <= squareNum; i++) {
@@ -42,6 +52,7 @@ function createGrid(squareNum) {
     }
 };
 
+//attach event listeners to all squares 
 function attachSquareEvents() {
 
     const squares = document.querySelectorAll(`.squares`);
@@ -88,9 +99,10 @@ function attachSquareEvents() {
             square.dataset.g = g;
             square.dataset.b = b;
 
+            if(isPenOn) {
 
             //start drawing by holding shift key
-            if (event.shiftKey) {
+            if (event.shiftKey)  {
                 if (opacityChange?.value === 'increase-opaq') {
                     let currentOpacity = parseFloat(square.dataset.opacity);
 
@@ -110,6 +122,14 @@ function attachSquareEvents() {
                 console.log(opacity);
                 console.log(`${r}, ${g}, ${b}`);
             }
+        } else {
+
+            if (event.shiftKey) {
+                event.target.style.backgroundColor = ``;
+            //add eraser here
+            }
+        }
+
         });
 
     });
@@ -122,17 +142,13 @@ function ran(max) {
 }
 
 //show gridlines
-showGridLinesButton.addEventListener(`click`, () => {
+toggleGridButton.addEventListener(`click`, () => {
     const squares = gridContainer.querySelectorAll('.squares');
 
     squares.forEach(square => {
         square.classList.toggle('no-grid-lines');
     });
-
-    showGridLinesButton.textContent =
-        showGridLinesButton.textContent === "show grid lines"
-            ? "hide grid lines"
-            : "show grid lines";
+    toggleGridButton.classList.toggle(`is-on`);
 });
 
 
@@ -180,3 +196,58 @@ opacityRadios.forEach(radio => {
         resetDataset(); // Reset dataset for all squares
     });
 });
+
+
+about.addEventListener(`click`, ()=> {
+    alert(`About? Just hold your mouse, shake it like you're possessed, and hope for the best!`);
+
+});
+
+
+
+penButton.addEventListener(`click`, ()=>{
+    isPenOn = true;
+    isEraserOn = false;
+    penButton.classList.add(`is-on`);
+    eraserButton.classList.remove(`is-on`);
+    toolStatus.textContent = `pen is on, hold shift-key to start drawing`;
+
+
+});
+
+eraserButton.addEventListener(`click`, ()=> {
+    isPenOn = false;
+    isEraserOn = true;
+    penButton.classList.remove(`is-on`);
+    eraserButton.classList.add(`is-on`);
+    toolStatus.textContent = `eraser is on, hold shift-key to start erasing`;
+
+});
+
+
+downloadButton.addEventListener('click', () => {
+
+    domtoimage.toPng(gridContainer)
+      .then(function (dataUrl) {
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = 'grid.png';
+        a.click();
+
+        alert('The result of your possessed hands is downloaded successfully!');
+
+
+      })
+      .catch(function (error) {
+        console.error('Error:', error);
+        alert("Oops, it seems your art skills need a little fine-tuning. Give it another shot!");
+      });
+  });
+
+  colorPickerAlt.addEventListener(`click`, ()=>{
+    colorPicker.click();
+  });
+
+  colorPicker.addEventListener('input', function() {
+    colorPickerAlt.style.color = colorPicker.value;
+  });
