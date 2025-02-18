@@ -14,6 +14,10 @@ const downloadButton = document.querySelector(`.download-button`);
 const toolStatus = document.querySelector(`.tool-status`);
 const colorPickerAlt = document.querySelector(`.colorPicker-palette`);
 const customColorRadioButton = document.querySelector(`.custom-color-radio`);
+
+const colorTypeRadios = document.querySelectorAll('input[name="color-type"]');
+const opacityChangeRadios = document.querySelectorAll('input[name="opacity"]');
+
 let isPenOn=true;
 let isEraserOn = false;
 
@@ -56,84 +60,86 @@ function createGrid(squareNum) {
 //attach event listeners to all squares 
 function attachSquareEvents() {
 
-    const squares = document.querySelectorAll(`.squares`);
-    squares.forEach(square => {
-        let opacity;
-        square.dataset.opacity = 0.0;
 
-        square.addEventListener(`mouseenter`, (event) => {
+    //optimize using event delegation instead of individual square listeners
+    gridContainer.addEventListener('mouseover', (event) => {
+        const square = event.target;
+
+        // Only proceed if the event target is a square
+        if (square.classList.contains('squares')) {
+            let opacity;
+
+            if (!square.dataset.opacity) {
+                square.dataset.opacity = 0.0;
+            }
+
+            const colorType = getCheckedValue(colorTypeRadios);
+            const opacityChange = getCheckedValue(opacityChangeRadios);
+
             let r, g, b;
-            const colorType = document.querySelector(`input[name="color-type"]:checked`).value;
-            let opacityChange = document.querySelector(`input[name="opacity"]:checked`);
 
             if (colorType === 'black') {
-                // Black color option
                 r = 0;
                 g = 0;
                 b = 0;
-                // color = 'rgb(0, 0, 0,)';
             } else if (colorType === 'random-colors') {
-                if (opacityChange?.value === 'increase-opaq') {
+                if (opacityChange === 'increase-opaq') {
                     r = parseInt(square.dataset.r) || ran(255);
                     g = parseInt(square.dataset.g) || ran(255);
                     b = parseInt(square.dataset.b) || ran(255);
                 } else {
-                    // Random colors option
                     r = ran(255);
                     g = ran(255);
                     b = ran(255);
-                    // color = `rgb(${ran(255)}, ${ran(255)}, ${ran(255)})`;
                 }
-
-
             } else if (colorType === 'custom') {
-                // Custom color option
-                // color = colorPicker.value;
                 const { r: red, g: green, b: blue } = hexToRgb(colorPicker.value);
                 r = red;
                 g = green;
                 b = blue;
             }
 
-            //saving r g b for random colors with opacity change
+            // Save RGB for future opacity changes
             square.dataset.r = r;
             square.dataset.g = g;
             square.dataset.b = b;
 
-            if(isPenOn) {
-
-            //start drawing by holding shift key
-            if (event.shiftKey)  {
-                if (opacityChange?.value === 'increase-opaq') {
-                    let currentOpacity = parseFloat(square.dataset.opacity);
-
-                    if (currentOpacity >= 1) {
-                        //do not increase anymore
+            // Check if pen is on and if shiftkey is pressed
+            if (isPenOn) {
+                if (event.shiftKey) {
+                    if (opacityChange === 'increase-opaq') {
+                        let currentOpacity = parseFloat(square.dataset.opacity);
+                        console.log();
+                        if (currentOpacity < 1) {
+                            currentOpacity = parseFloat((currentOpacity + 0.1).toFixed(1));
+                        }
+                        square.dataset.opacity = currentOpacity;
+                        opacity = currentOpacity;
                     } else {
-                        currentOpacity = parseFloat((currentOpacity + 0.1).toFixed(1));
+                        opacity = 1;
                     }
-                    square.dataset.opacity = currentOpacity;
-                    opacity = currentOpacity;
 
-                } else {
-                    opacity = 1;
+                    // Update square color with the selected RGB and opacity
+                    square.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
                 }
-
-                event.target.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-                console.log(opacity);
-                console.log(`${r}, ${g}, ${b}`);
-            }
-        } else {
-
-            if (event.shiftKey) {
-                event.target.style.backgroundColor = ``;
-            //add eraser here
+            } else {
+                // Eraser logic if eraser is chosen and shiftKey is pressed
+                if (event.shiftKey) {
+                    square.style.backgroundColor = '';
+                }
             }
         }
-
-        });
-
     });
+}
+
+//funciton to get checked option in the radiobuttons
+function getCheckedValue(buttons) {
+    for(let button of buttons) {
+        if(button.checked){
+        return button.value;
+        }
+    }
+    return null;
 }
 
 
@@ -170,6 +176,7 @@ clearGridColor.addEventListener('click', () => {
     squares.forEach(square => square.style.removeProperty('background-color'));
 
     resetDataset(); 
+        penButton.click();
 
 });
 
