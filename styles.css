@@ -276,9 +276,6 @@ h2 {
     flex-shrink: 1;
 
     cursor: url('paintbrush-simple.svg') 10 10, auto;
-
-
-
 }
 
 .squares.no-grid-lines {
@@ -356,7 +353,7 @@ h2 {
 
 
 
-@media (min-width: 700px) {
+@media (min-width: 1024px) {
 
     /* * {
         border: 1px solid lime;

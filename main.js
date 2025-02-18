@@ -167,10 +167,10 @@ function resetDataset() {
 // Clear colors in grid resetting dataset color and opacity
 clearGridColor.addEventListener('click', () => {
     const squares = gridContainer.querySelectorAll('.squares');
-    squares.forEach(square => {
-        square.style.backgroundColor = '';
-        resetDataset(); 
-    });
+    squares.forEach(square => square.style.removeProperty('background-color'));
+
+    resetDataset(); 
+
 });
 
 // Helper function to convert hex to RGB
