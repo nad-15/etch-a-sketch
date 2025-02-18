@@ -14,22 +14,21 @@ const downloadButton = document.querySelector(`.download-button`);
 const toolStatus = document.querySelector(`.tool-status`);
 const colorPickerAlt = document.querySelector(`.colorPicker-palette`);
 const customColorRadioButton = document.querySelector(`.custom-color-radio`);
-
 const colorTypeRadios = document.querySelectorAll('input[name="color-type"]');
 const opacityChangeRadios = document.querySelectorAll('input[name="opacity"]');
 
-let isPenOn=true;
+let isPenOn = true;
 let isEraserOn = false;
 
 
-//initialize grid and square listeners
+//Initialize grid and square listeners
 createGrid(16);
 attachSquareEvents();
 
 
-
+//Initiate creation of grid as per users chosen size
 createGridButton.addEventListener('click', function () {
-    
+
     const squareNum = parseInt(numOfSquareInput.value);
     if (squareNum >= 1 && squareNum <= 200) {
         createGrid(squareNum);
@@ -57,22 +56,24 @@ function createGrid(squareNum) {
     }
 };
 
-//attach event listeners to all squares 
+//Attach event listeners to all squares 
 function attachSquareEvents() {
 
 
-    //optimize using event delegation instead of individual square listeners
+    //Optimize using event delegation instead of individual square listeners || I used squares.addEventListener before this (lots of listeners)
     gridContainer.addEventListener('mouseover', (event) => {
         const square = event.target;
 
-        // Only proceed if the event target is a square
+        // Only proceed if the event target is a square || Just making sure but I doubt grid has other elements than squares
         if (square.classList.contains('squares')) {
             let opacity;
 
+            //Only set dataset.opacity if not set yet to prevent resetting at progressive opacity option
             if (!square.dataset.opacity) {
                 square.dataset.opacity = 0.0;
             }
 
+            //Get chosen color and opacity 
             const colorType = getCheckedValue(colorTypeRadios);
             const opacityChange = getCheckedValue(opacityChangeRadios);
 
@@ -99,7 +100,7 @@ function attachSquareEvents() {
                 b = blue;
             }
 
-            // Save RGB for future opacity changes
+            // Save RGB for future opacity change and random colors || black and custom color doesnt need this
             square.dataset.r = r;
             square.dataset.g = g;
             square.dataset.b = b;
@@ -109,7 +110,6 @@ function attachSquareEvents() {
                 if (event.shiftKey) {
                     if (opacityChange === 'increase-opaq') {
                         let currentOpacity = parseFloat(square.dataset.opacity);
-                        console.log();
                         if (currentOpacity < 1) {
                             currentOpacity = parseFloat((currentOpacity + 0.1).toFixed(1));
                         }
@@ -121,6 +121,8 @@ function attachSquareEvents() {
 
                     // Update square color with the selected RGB and opacity
                     square.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+                    console.log(opacity);
+                    console.log(`${r}, ${g}, ${b}`);
                 }
             } else {
                 // Eraser logic if eraser is chosen and shiftKey is pressed
@@ -132,23 +134,23 @@ function attachSquareEvents() {
     });
 }
 
-//funciton to get checked option in the radiobuttons
+//Funciton to get checked option in the radiobuttons: color and opacity update
 function getCheckedValue(buttons) {
-    for(let button of buttons) {
-        if(button.checked){
-        return button.value;
+    for (let button of buttons) {
+        if (button.checked) {
+            return button.value;
         }
     }
     return null;
 }
 
 
-//generate random colors
+//Generate random colors
 function ran(max) {
     return Math.floor(Math.random() * (max + 1));
 }
 
-//show gridlines
+//Toggle grid "lines"
 toggleGridButton.addEventListener(`click`, () => {
     const squares = gridContainer.querySelectorAll('.squares');
 
@@ -159,7 +161,7 @@ toggleGridButton.addEventListener(`click`, () => {
 });
 
 
-// helper function to reset the dataset of squares
+// Helper function to reset the dataset of squares
 function resetDataset() {
     const squares = document.querySelectorAll('.squares');
     squares.forEach(square => {
@@ -170,13 +172,12 @@ function resetDataset() {
     });
 }
 
-// Clear colors in grid resetting dataset color and opacity
+// Clear colors in grid resetting dataset color and opacity and auto choose pen
 clearGridColor.addEventListener('click', () => {
     const squares = gridContainer.querySelectorAll('.squares');
     squares.forEach(square => square.style.removeProperty('background-color'));
-
-    resetDataset(); 
-        penButton.click();
+    resetDataset();
+    penButton.click();
 
 });
 
@@ -206,14 +207,14 @@ opacityRadios.forEach(radio => {
 });
 
 
-about.addEventListener(`click`, ()=> {
+about.addEventListener(`click`, () => {
     alert(`About? Just hold your mouse, shake it like you're possessed, and hope for the best!`);
 
 });
 
 
-
-penButton.addEventListener(`click`, ()=>{
+//Pen is chosen
+penButton.addEventListener(`click`, () => {
     isPenOn = true;
     isEraserOn = false;
     penButton.classList.add(`is-on`);
@@ -223,7 +224,8 @@ penButton.addEventListener(`click`, ()=>{
 
 });
 
-eraserButton.addEventListener(`click`, ()=> {
+//Eraser is chosen
+eraserButton.addEventListener(`click`, () => {
     isPenOn = false;
     isEraserOn = true;
     penButton.classList.remove(`is-on`);
@@ -233,31 +235,33 @@ eraserButton.addEventListener(`click`, ()=> {
 });
 
 
+
 downloadButton.addEventListener('click', () => {
 
     domtoimage.toPng(gridContainer)
-      .then(function (dataUrl) {
-        const a = document.createElement('a');
-        a.href = dataUrl;
-        a.download = 'grid.png';
-        a.click();
+        .then(function (dataUrl) {
+            const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = 'grid.png';
+            a.click();
 
-        alert('The result of your possessed hands is downloaded successfully!');
-
-
-      })
-      .catch(function (error) {
-        console.error('Error:', error);
-        alert("Oops, it seems your art skills need a little fine-tuning. Give it another shot!");
-      });
-  });
+            alert('The result of your possessed hands is downloaded successfully!');
 
 
-  colorPickerAlt.addEventListener(`click`, ()=>{
+        })
+        .catch(function (error) {
+            console.error('Error:', error);
+            alert("Oops, it seems your art skills need a little fine-tuning. Give it another shot!");
+        });
+});
+
+//Redirecting the true colorPicker to its alternate element
+colorPickerAlt.addEventListener(`click`, () => {
     colorPicker.click();
-  });
+});
 
-  colorPicker.addEventListener('input', function() {
+
+colorPicker.addEventListener('input', function () {
     colorPickerAlt.style.color = colorPicker.value;
     customColorRadioButton.checked = true;
-  });
+});
