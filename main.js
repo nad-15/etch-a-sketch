@@ -152,7 +152,7 @@ toggleGridButton.addEventListener(`click`, () => {
 });
 
 
-// Helper function to reset the dataset of squares
+// helper function to reset the dataset of squares
 function resetDataset() {
     const squares = document.querySelectorAll('.squares');
     squares.forEach(square => {
@@ -243,6 +243,7 @@ downloadButton.addEventListener('click', () => {
         alert("Oops, it seems your art skills need a little fine-tuning. Give it another shot!");
       });
   });
+
 
   colorPickerAlt.addEventListener(`click`, ()=>{
     colorPicker.click();
