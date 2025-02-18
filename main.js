@@ -13,6 +13,7 @@ const penButton = document.querySelector(`.pen-button`);
 const downloadButton = document.querySelector(`.download-button`);
 const toolStatus = document.querySelector(`.tool-status`);
 const colorPickerAlt = document.querySelector(`.colorPicker-palette`);
+const customColorRadioButton = document.querySelector(`.custom-color-radio`);
 let isPenOn=true;
 let isEraserOn = false;
 
@@ -251,4 +252,5 @@ downloadButton.addEventListener('click', () => {
 
   colorPicker.addEventListener('input', function() {
     colorPickerAlt.style.color = colorPicker.value;
+    customColorRadioButton.checked = true;
   });
