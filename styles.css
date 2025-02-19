@@ -441,6 +441,9 @@ h2 {
         /* flex-wrap: 1; */
         border-radius: 8px;
         background-color: rgba(34, 34, 34, 0.6);
+        /* border: 2px solid red; */
+        overflow: auto;
+        scrollbar-width: none;
     }
 
     /* Container for input and button */

@@ -73,7 +73,7 @@ function attachSquareEvents() {
                 square.dataset.opacity = 0.0;
             }
 
-            //Get chosen color and opacity 
+            //Get chosen color 
             const colorType = getCheckedValue(colorTypeRadios);
             const opacityChange = getCheckedValue(opacityChangeRadios);
 
@@ -101,31 +101,36 @@ function attachSquareEvents() {
             }
 
             // Save RGB for future opacity change and random colors || black and custom color doesnt need this
+            // this r g b values now can be used for eraser(progressive)
             square.dataset.r = r;
             square.dataset.g = g;
             square.dataset.b = b;
 
+            let currentOpacity = parseFloat(square.dataset.opacity);
+            if (opacityChange === 'increase-opaq') {
+                if (currentOpacity < 1) {
+                    currentOpacity = parseFloat((currentOpacity + 0.1).toFixed(1));
+                }
+                opacity = currentOpacity;
+            } else {
+                opacity = 1;
+            }
+
+            //Save opacity for pen eraser
+            square.dataset.opacity = opacity;
+
+
             // Check if pen is on and if shiftkey is pressed
             if (isPenOn) {
                 if (event.shiftKey) {
-                    if (opacityChange === 'increase-opaq') {
-                        let currentOpacity = parseFloat(square.dataset.opacity);
-                        if (currentOpacity < 1) {
-                            currentOpacity = parseFloat((currentOpacity + 0.1).toFixed(1));
-                        }
-                        square.dataset.opacity = currentOpacity;
-                        opacity = currentOpacity;
-                    } else {
-                        opacity = 1;
-                    }
-
                     // Update square color with the selected RGB and opacity
                     square.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
                     console.log(opacity);
                     console.log(`${r}, ${g}, ${b}`);
                 }
-            } else {
-                // Eraser logic if eraser is chosen and shiftKey is pressed
+
+            // Eraser logic if eraser is on and shiftKey is pressed
+            } else if (isEraserOn) {
                 if (event.shiftKey) {
                     //clear color
                     square.style.backgroundColor = '';
@@ -134,7 +139,6 @@ function attachSquareEvents() {
                     square.dataset.r = ``;
                     square.dataset.g = ``;
                     square.dataset.b = ``;
-
                 }
             }
         }
