@@ -210,6 +210,22 @@ colorRadios.forEach(radio => {
     });
 });
 
+
+colorPicker.addEventListener('input', function () {
+    colorPickerAlt.style.color = colorPicker.value;
+    customColorRadioButton.checked = true;
+    resetDataset();
+});
+
+
+//Redirecting the true colorPicker to its alternate element
+colorPickerAlt.addEventListener(`click`, () => {
+    colorPicker.click();
+});
+
+
+
+
 // Listen for changes on opacity radio buttons and reset dataset
 opacityRadios.forEach(radio => {
     radio.addEventListener('change', () => {
@@ -266,13 +282,3 @@ downloadButton.addEventListener('click', () => {
         });
 });
 
-//Redirecting the true colorPicker to its alternate element
-colorPickerAlt.addEventListener(`click`, () => {
-    colorPicker.click();
-});
-
-
-colorPicker.addEventListener('input', function () {
-    colorPickerAlt.style.color = colorPicker.value;
-    customColorRadioButton.checked = true;
-});
