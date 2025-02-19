@@ -127,7 +127,14 @@ function attachSquareEvents() {
             } else {
                 // Eraser logic if eraser is chosen and shiftKey is pressed
                 if (event.shiftKey) {
+                    //clear color
                     square.style.backgroundColor = '';
+                    //celar dataset
+                    square.dataset.opacity = 0.0;
+                    square.dataset.r = ``;
+                    square.dataset.g = ``;
+                    square.dataset.b = ``;
+
                 }
             }
         }
