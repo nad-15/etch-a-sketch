@@ -59,73 +59,81 @@ function createGrid(squareNum) {
 //Attach event listeners to all squares 
 function attachSquareEvents() {
 
+    const squares = document.querySelectorAll(`.squares`);
+    squares.forEach(square => {
+        let opacity;
+        square.dataset.opacity = 0.0;
 
-    //Optimize using event delegation instead of individual square listeners || I used squares.addEventListener before this (lots of listeners)
-    gridContainer.addEventListener('mouseover', (event) => {
-        const square = event.target;
+        square.addEventListener(`mouseenter`, (event) => {
 
-        // Only proceed if the event target is a square || Just making sure but I doubt grid has other elements than squares
-        if (square.classList.contains('squares')) {
-            let opacity;
-
-            //Only set dataset.opacity if not set yet to prevent resetting at progressive opacity option
-            if (!square.dataset.opacity) {
-                square.dataset.opacity = 0.0;
-            }
-
-            //Get chosen color and opacity 
-            const colorType = getCheckedValue(colorTypeRadios);
-            const opacityChange = getCheckedValue(opacityChangeRadios);
-
-            let r, g, b;
-
-            if (colorType === 'black') {
-                r = 0;
-                g = 0;
-                b = 0;
-            } else if (colorType === 'random-colors') {
-                if (opacityChange === 'increase-opaq') {
-                    r = parseInt(square.dataset.r) || ran(255);
-                    g = parseInt(square.dataset.g) || ran(255);
-                    b = parseInt(square.dataset.b) || ran(255);
-                } else {
-                    r = ran(255);
-                    g = ran(255);
-                    b = ran(255);
-                }
-            } else if (colorType === 'custom') {
-                const { r: red, g: green, b: blue } = hexToRgb(colorPicker.value);
-                r = red;
-                g = green;
-                b = blue;
-            }
-
-            // Save RGB for future opacity change and random colors || black and custom color doesnt need this
-            square.dataset.r = r;
-            square.dataset.g = g;
-            square.dataset.b = b;
-
-            // Check if pen is on and if shiftkey is pressed
+            //drawing
             if (isPenOn) {
+                //start drawing by holding shift key
                 if (event.shiftKey) {
+                    let r, g, b;
+
+                    //Get chosen color and opacity 
+                    const colorType = getCheckedValue(colorTypeRadios);
+                    const opacityChange = getCheckedValue(opacityChangeRadios);
+
+                    if (colorType === 'black') {
+                        // Black color option
+                        r = 0;
+                        g = 0;
+                        b = 0;
+                        // color = 'rgb(0, 0, 0,)';
+                    } else if (colorType === 'random-colors') {
+                        if (opacityChange === 'increase-opaq') {
+                            r = parseInt(square.dataset.r) || ran(255);
+                            g = parseInt(square.dataset.g) || ran(255);
+                            b = parseInt(square.dataset.b) || ran(255);
+                        } else {
+                            // Random colors option
+                            r = ran(255);
+                            g = ran(255);
+                            b = ran(255);
+                            // color = `rgb(${ran(255)}, ${ran(255)}, ${ran(255)})`;
+                        }
+
+
+                    } else if (colorType === 'custom') {
+                        // Custom color option
+                        // color = colorPicker.value;
+                        const { r: red, g: green, b: blue } = hexToRgb(colorPicker.value);
+                        r = red;
+                        g = green;
+                        b = blue;
+                    }
+
+                    //saving r g b for random colors with opacity change
+                    square.dataset.r = r;
+                    square.dataset.g = g;
+                    square.dataset.b = b;
+
+
                     if (opacityChange === 'increase-opaq') {
                         let currentOpacity = parseFloat(square.dataset.opacity);
-                        if (currentOpacity < 1) {
+
+                        if (currentOpacity >= 1) {
+                            //do not increase anymore
+                        } else {
                             currentOpacity = parseFloat((currentOpacity + 0.1).toFixed(1));
                         }
                         square.dataset.opacity = currentOpacity;
                         opacity = currentOpacity;
+
                     } else {
                         opacity = 1;
                     }
 
-                    // Update square color with the selected RGB and opacity
-                    square.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+                    event.target.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
                     console.log(opacity);
                     console.log(`${r}, ${g}, ${b}`);
                 }
-            } else {
-                // Eraser logic if eraser is chosen and shiftKey is pressed
+
+            //erasing
+            } else if(isEraserOn) {
+
                 if (event.shiftKey) {
                     //clear color
                     square.style.backgroundColor = '';
@@ -137,10 +145,11 @@ function attachSquareEvents() {
 
                 }
             }
-        }
+
+        });
+
     });
 }
-
 //Funciton to get checked option in the radiobuttons: color and opacity update
 function getCheckedValue(buttons) {
     for (let button of buttons) {
@@ -271,4 +280,5 @@ colorPickerAlt.addEventListener(`click`, () => {
 colorPicker.addEventListener('input', function () {
     colorPickerAlt.style.color = colorPicker.value;
     customColorRadioButton.checked = true;
+    resetDataset();
 });
