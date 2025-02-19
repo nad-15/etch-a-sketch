@@ -60,6 +60,8 @@ function createGrid(squareNum) {
 function attachSquareEvents() {
 
     const squares = document.querySelectorAll(`.squares`);
+
+    //NEED TO DO : event delegation here to avoid too many listeners
     squares.forEach(square => {
         let opacity;
         square.dataset.opacity = 0.0;
@@ -126,7 +128,7 @@ function attachSquareEvents() {
                         opacity = 1;
                     }
 
-                    event.target.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+                    square.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
                     console.log(opacity);
                     console.log(`${r}, ${g}, ${b}`);
                 }
@@ -215,6 +217,18 @@ colorRadios.forEach(radio => {
     });
 });
 
+//real colorPicker updateing alternate to its color value
+colorPicker.addEventListener('input', function () {
+    colorPickerAlt.style.color = colorPicker.value;
+    customColorRadioButton.checked = true;
+    resetDataset();
+});
+
+//Redirecting the true colorPicker to its alternate element
+colorPickerAlt.addEventListener(`click`, () => {
+    colorPicker.click();
+});
+
 // Listen for changes on opacity radio buttons and reset dataset
 opacityRadios.forEach(radio => {
     radio.addEventListener('change', () => {
@@ -271,14 +285,3 @@ downloadButton.addEventListener('click', () => {
         });
 });
 
-//Redirecting the true colorPicker to its alternate element
-colorPickerAlt.addEventListener(`click`, () => {
-    colorPicker.click();
-});
-
-
-colorPicker.addEventListener('input', function () {
-    colorPickerAlt.style.color = colorPicker.value;
-    customColorRadioButton.checked = true;
-    resetDataset();
-});
